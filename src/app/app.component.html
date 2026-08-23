@@ -1,0 +1,36 @@
+<div class="shell">
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="brand"><span>W</span> Workspace</div>
+    <nav>
+      <a href="#dashboard" class="active">Dashboard</a>
+      <a href="#work">Work Queue</a>
+      <a href="#teams">Teams</a>
+      <a href="#settings">Settings</a>
+    </nav>
+  </aside>
+
+  <main id="dashboard">
+    <header>
+      <div><p class="eyebrow">ENTERPRISE PORTAL</p><h1>Team Workspace</h1><p>Reusable Angular dashboard for operational workflows.</p></div>
+      <button type="button">Create item</button>
+    </header>
+
+    <section class="summary" *ngIf="summary$ | async as summary" aria-label="Work summary">
+      <article><span>Total items</span><strong>{{ summary.total }}</strong></article>
+      <article><span>Open</span><strong>{{ summary.open }}</strong></article>
+      <article><span>In progress</span><strong>{{ summary.progress }}</strong></article>
+      <article><span>Complete</span><strong>{{ summary.complete }}</strong></article>
+    </section>
+
+    <section id="work" class="panel">
+      <div class="panel-heading"><div><p class="eyebrow">WORK QUEUE</p><h2>Current work</h2></div><div class="filters" aria-label="Filter work items"><button *ngFor="let filter of ['All','Open','In Progress','Complete']" type="button" [class.selected]="activeFilter === filter" (click)="setFilter(filter)">{{ filter }}</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Item</th><th>Team</th><th>Priority</th><th>Status</th></tr></thead><tbody><tr *ngFor="let item of visibleItems$ | async"><td><strong>{{ item.id }}</strong><span>{{ item.title }}</span></td><td>{{ item.team }}</td><td>{{ item.priority }}</td><td><span class="status">{{ item.status }}</span></td></tr></tbody></table></div>
+    </section>
+
+    <section class="modules" id="teams">
+      <article class="panel"><p class="eyebrow">UI MODULE</p><h3>Customer Experience</h3><p>Example independently owned feature area for customer-facing workflows.</p></article>
+      <article class="panel"><p class="eyebrow">UI MODULE</p><h3>Operations</h3><p>Example feature area for internal operations and task management.</p></article>
+      <article class="panel"><p class="eyebrow">SHARED LIBRARY</p><h3>Design System</h3><p>Shared buttons, forms, layout patterns, and accessibility conventions.</p></article>
+    </section>
+  </main>
+</div>
